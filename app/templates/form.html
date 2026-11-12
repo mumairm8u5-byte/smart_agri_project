@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}{{ action }} {{ name|title }}{% endblock %}
+{% block content %}
+<div class="glass auth-box">
+    <h2>{{ action }} {{ name|title }}</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {% for field in form %}
+        {% if field.type not in ['CSRFTokenField', 'SubmitField'] %}
+        <label>{{ field.label.text }}</label>
+        {{ field() }}
+        {% for e in field.errors %}<span class="error-text">{{ e }}</span>{% endfor %}
+        {% endif %}
+        {% endfor %}
+        {{ form.submit(class="btn") }}
+        <a class="cancel" href="{{ url_for('crud.list_items', name=name) }}">Cancel</a>
+    </form>
+</div>
+{% endblock %}

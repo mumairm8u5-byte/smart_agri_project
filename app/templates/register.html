@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="glass auth-box">
+    <h2>Create Account</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {% for field in [form.username, form.email, form.password, form.confirm] %}
+        <label>{{ field.label.text }}</label>
+        {{ field() }}
+        {% for e in field.errors %}<span class="error-text">{{ e }}</span>{% endfor %}
+        {% endfor %}
+        {{ form.submit(class="btn") }}
+    </form>
+    <p class="small">Already registered? <a href="{{ url_for('auth.login') }}">Login</a></p>
+</div>
+{% endblock %}

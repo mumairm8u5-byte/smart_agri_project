@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+<div class="stats">
+    {% for label, value in stats %}
+    <div class="glass stat">
+        <p>{{ label }}</p>
+        <h2>{{ value }}</h2>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="glass panel">
+    <h3>Recently Added Farms</h3>
+    {% if recent_farms %}
+    <table>
+        <tr><th>Name</th><th>Location</th><th>Size (ha)</th></tr>
+        {% for farm in recent_farms %}
+        <tr><td>{{ farm.name }}</td><td>{{ farm.location }}</td><td>{{ farm.size_hectares }}</td></tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No farms yet. <a href="{{ url_for('crud.add_item', name='farms') }}">Add your first farm</a>.</p>
+    {% endif %}
+</div>
+{% endblock %}
